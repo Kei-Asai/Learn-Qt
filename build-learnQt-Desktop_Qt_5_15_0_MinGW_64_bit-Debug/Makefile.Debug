@@ -65,16 +65,16 @@ DIST          =  ..\learnQt\mainwindow.h \
 		..\learnQt\reader.h ..\learnQt\main.cpp \
 		..\learnQt\mainwindow.cpp
 QMAKE_TARGET  = learnQt
-DESTDIR        = debug\ #avoid trailing-slash linebreak
+DESTDIR        = ..\learnQt\ #avoid trailing-slash linebreak
 TARGET         = learnQt.exe
-DESTDIR_TARGET = debug\learnQt.exe
+DESTDIR_TARGET = ..\learnQt\learnQt.exe
 
 ####### Build rules
 
 first: all
-all: Makefile.Debug  debug/learnQt.exe
+all: Makefile.Debug  ../learnQt/learnQt.exe
 
-debug/learnQt.exe: D:/Qt/5.15.0/mingw81_64/lib/libQt5Widgets.a D:/Qt/5.15.0/mingw81_64/lib/libQt5Gui.a D:/Qt/5.15.0/mingw81_64/lib/libQt5Core.a D:/Qt/5.15.0/mingw81_64/lib/libqtmain.a ui_mainwindow.h $(OBJECTS) 
+../learnQt/learnQt.exe: D:/Qt/5.15.0/mingw81_64/lib/libQt5Widgets.a D:/Qt/5.15.0/mingw81_64/lib/libQt5Gui.a D:/Qt/5.15.0/mingw81_64/lib/libQt5Core.a D:/Qt/5.15.0/mingw81_64/lib/libqtmain.a ui_mainwindow.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
 
 qmake: FORCE
@@ -494,6 +494,7 @@ debug/main.o: ../learnQt/main.cpp ../learnQt/mainwindow.h \
 		D:/Qt/5.15.0/mingw81_64/include/QtWidgets/QPushButton \
 		D:/Qt/5.15.0/mingw81_64/include/QtWidgets/qpushbutton.h \
 		D:/Qt/5.15.0/mingw81_64/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/5.15.0/mingw81_64/include/QtCore/QFile \
 		../learnQt/newspaper.h \
 		D:/Qt/5.15.0/mingw81_64/include/QtCore/QObject \
 		../learnQt/reader.h \

@@ -4,7 +4,7 @@
 
 ### 1、信号槽
 
-+ 信号处理流程：
++ 信号==处理==流程：
 
 ```mermaid
 graph LR
@@ -21,7 +21,7 @@ C --> D(对应的槽函数<i>SLOT</i>被回调)
 >  sender：发出信号的对象（不是函数）
 >  signal：对象发出的信号（**字符串**或者指向成员函数的指针）
 >  receiver：接受信号的对象（省略则代表是this指针）
->  slot：接收对象在接收到信号之后需要**调用**的槽函数（**字符串**或者指向成员函数的指针）
+>  slot：接收对象在接收到信号之后需要**调用**的槽函数（**字符串(须声明为public slot)**或者指向成员函数的指针）
 >
 >  使用举例：
 >
@@ -56,23 +56,15 @@ C --> D(对应的槽函数<i>SLOT</i>被回调)
 > {
 >     Q_OBJECT//继承了QObject就要添加Q_OBJECT宏
 > public:
->     Newspaper(const QString & name) :
->         m_name(name)
+>        Reader() {}
+>    
+>    public slots://非函数指针调用均需要这样写
+>        void receiveNewspaper(const QString & name) const
 >     {
->     }
-> 
->     void send()
->     {
->         emit newPaper(m_name);
->     }
-> 
-> signals:
->     void newPaper(const QString &name);
-> 
-> private:
->     QString m_name;
-> }
-> ```
+>            qDebug() << "Receives Newspaper: " << name;
+>        }
+>    };
+>    ```
 
 > ```c++
 > class Newspaper : public QObject
@@ -95,6 +87,11 @@ C --> D(对应的槽函数<i>SLOT</i>被回调)
 > private:
 >     QString m_name;
 > };
+> ```
+
+> ```c++
+> QObject::connect(&newspaper, &Newspaper::newPaper,
+>                     &reader,    &Reader::receiveNewspaper);
 > ```
 
 > ​       总结
